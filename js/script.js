@@ -1,12 +1,39 @@
-// var k = JSON.parse(apiKey);
-// key = k[0].key;
+var k = JSON.parse(apiKey);
+key = k[0].key;
 
-// $(document).ready(function(){
+$(document).ready(function(){
 
-function test(){
+function keywordSearch(){
   $.ajax({
 
-    url:`https://newsapi.org/v2/everything?q=salsa&apiKey=MYKEY`,
+    url:`https://newsapi.org/v2/everything?${keyword}&apiKey=${key}`,
+    type:'GET',
+    data:'json',
+    success: function(data) {
+      console.log(data);
+      var i;
+      for(i=0; i<data.articles.length; i++){
+        document.getElementById('dump').innerHTML 
+        += '<div class="col-3">'
+        + '<p class="" src="">'+data.articles[i].title+'</p>'
+        + '</div>'
+      }
+
+    },//data end
+
+    error: function(){
+      console.log('error');
+    }//error end
+
+  });//ajax ending here
+
+};
+
+
+function keywordlangSearch(){
+  $.ajax({
+
+    url:`https://newsapi.org/v2/everything?q=news&language=fr&sitBy=publishedAt&apiKey=${key}`,
     type:'GET',
     data:'json',
     success: function(data) {
@@ -30,7 +57,31 @@ function test(){
 };
 // });
 
+function general(){
+  $.ajax({
 
+    url:`http://newsapi.org/v2/top-headlines?country=nz&apiKey=${key}`,
+    type:'GET',
+    data:'json',
+    success: function(data) {
+      console.log(data);
+      var i;
+      for(i=0; i<data.articles.length; i++){
+        document.getElementById('dump').innerHTML 
+        += '<div class="col-3">'
+        + '<p class="" src="">'+data.articles[i].title+'</p>'
+        + '</div>'
+      }
+
+    },//data end
+
+    error: function(){
+      console.log('error');
+    }//error end
+
+  });//ajax ending here
+
+};
 // var input = document.getElementById("searchWord");
 // // Execute a function when the user releases a key on the keyboard
 // input.addEventListener("keyup", function(event) {
@@ -47,17 +98,29 @@ var keyword = "";
 var orient = "squarish";
 var number = "15";
 
-test()
+general();
 
-// document.getElementById('searchButton').addEventListener('click', function(e){
-//   // e.preventDefault();
-//   keyword = document.getElementById('searchWord').value; 
-//   console.log(keyword)
-//   orient = document.getElementById('orient').value;
-//   console.log(orient)
-//   number = document.getElementById('numbers').value;
-//   console.log(number)
-//   document.getElementById('dump').innerHTML = "";
-//   test();
+document.getElementById('searchButton').addEventListener('click', function(e){
+  // e.preventDefault();
+  keyword = "q=" + document.getElementById('searchWord').value; 
+  console.log(keyword)
+  // orient = document.getElementById('orient').value;
+  // console.log(orient)
+  // number = document.getElementById('numbers').value;
+  // console.log(number)
+  document.getElementById('dump').innerHTML = "";
+  keywordSearch();
 
-// });
+});
+
+document.getElementById('searchButton2').addEventListener('click', function(e){
+  document.getElementById('dump').innerHTML = "";
+  keywordlangSearch();
+});
+
+document.getElementById('searchButton3').addEventListener('click', function(e){
+  document.getElementById('dump').innerHTML = "";
+  keywordlangsortbySearch();
+});
+
+});
