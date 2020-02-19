@@ -3,85 +3,72 @@ key = k[0].key;
 
 $(document).ready(function(){
 
-function keywordSearch(){
-  $.ajax({
-
-    url:`https://newsapi.org/v2/everything?${keyword}&apiKey=${key}`,
-    type:'GET',
-    data:'json',
-    success: function(data) {
-      console.log(data);
-      var i;
-      for(i=0; i<data.articles.length; i++){
-        document.getElementById('dump').innerHTML 
-        += '<div class="col-3">'
-        + '<p class="" src="">'+data.articles[i].title+'</p>'
-        + '</div>'
-      }
-
-    },//data end
-
-    error: function(){
-      console.log('error');
-    }//error end
-
-  });//ajax ending here
-
-};
-
-
-function keywordlangSearch(){
-  $.ajax({
-
-    url:`https://newsapi.org/v2/everything?q=news&language=fr&sitBy=publishedAt&apiKey=${key}`,
-    type:'GET',
-    data:'json',
-    success: function(data) {
-      console.log(data);
-      var i;
-      for(i=0; i<data.articles.length; i++){
-        document.getElementById('dump').innerHTML 
-        += '<div class="col-3">'
-        + '<p class="" src="">'+data.articles[i].title+'</p>'
-        + '</div>'
-      }
-
-    },//data end
-
-    error: function(){
-      console.log('error');
-    }//error end
-
-  });//ajax ending here
-
-};
-// });
+var test = `http://newsapi.org/v2/top-headlines?country=nz&apiKey=${key}`;
+var test2 = `http://newsapi.org/v2/everything?q=${keyword}&apiKey=${key}`;
 
 function general(){
   $.ajax({
-
-    url:`http://newsapi.org/v2/top-headlines?country=nz&apiKey=${key}`,
+    url: test,
     type:'GET',
     data:'json',
     success: function(data) {
       console.log(data);
       var i;
       for(i=0; i<data.articles.length; i++){
-        document.getElementById('dump').innerHTML 
-        += '<div class="col-3">'
-        + '<p class="" src="">'+data.articles[i].title+'</p>'
-        + '</div>'
+        document.getElementById('dump').innerHTML += '<div class="col-3">' + '<p class="" src="">'+data.articles[i].title+'</p>' + '</div>';
       }
-
     },//data end
-
     error: function(){
       console.log('error');
     }//error end
-
   });//ajax ending here
+}
 
-};
+function generalTest(x){
+  $.ajax({
+    url: x,
+    type:'GET',
+    data:'json',
+    success: function(data) {
+      console.log(data);
+      var i;
+      for(i=0; i<data.articles.length; i++){
+        document.getElementById('dump').innerHTML += '<div class="col-3">' + '<p class="" src="">'+data.articles[i].title+'</p>' + '</div>';
+      }
+    },//data end
+    error: function(){
+      console.log('error');
+    }//error end 
+  });//ajax ending here
+} 
+
+//search vars
+var keyword = "";
+var country = "";
+var category = "";
+
+//checks for search url
+var keyCheck = null;
+var countryCheck = null;
+var categoryCheck = null;
+
+general();
+
+document.getElementById('searchButton').addEventListener('click', function(e){
+  keyword = document.getElementById('searchWord').value; 
+  console.log(keyword);
+  test2 = `http://newsapi.org/v2/everything?q=${keyword}&apiKey=${key}`;
+  // orient = document.getElementById('orient').value;
+  // console.log(orient)
+  // number = document.getElementById('numbers').value;
+  // console.log(number)
+  document.getElementById('dump').innerHTML = ""; // clear page
+  var x = test2; // set which search htttp to use
+
+  generalTest(x); //fire off funcitno
+  });
+});
+
 // var input = document.getElementById("searchWord");
 // // Execute a function when the user releases a key on the keyboard
 // input.addEventListener("keyup", function(event) {
@@ -94,33 +81,19 @@ function general(){
 //   }
 // });
 
-var keyword = "";
-var orient = "squarish";
-var number = "15";
+// console.log('changes');
 
-general();
-
-document.getElementById('searchButton').addEventListener('click', function(e){
-  // e.preventDefault();
-  keyword = "q=" + document.getElementById('searchWord').value; 
-  console.log(keyword)
-  // orient = document.getElementById('orient').value;
-  // console.log(orient)
-  // number = document.getElementById('numbers').value;
-  // console.log(number)
-  document.getElementById('dump').innerHTML = "";
-  keywordSearch();
-
+$(document).on('change','#category',function(){
+    alert('Change Happened');
+    categoryCheck = "checked";
 });
 
-document.getElementById('searchButton2').addEventListener('click', function(e){
-  document.getElementById('dump').innerHTML = "";
-  keywordlangSearch();
+$(document).on('change','#searchWord',function(){
+    alert('Change Happened');
+    keyCheck = "checked";
 });
 
-document.getElementById('searchButton3').addEventListener('click', function(e){
-  document.getElementById('dump').innerHTML = "";
-  keywordlangsortbySearch();
-});
-
+$(document).on('change','#country',function(){
+    alert('Change Happened');
+    countryCheck = "checked";
 });
