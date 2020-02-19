@@ -1,5 +1,17 @@
 body {
-  background-color: #895884;
+  background-color: #458945;
+}
+
+#allButton {
+  background-color: white;
+}
+
+#topButton {
+  background-color: gray;
+}
+
+#allSection {
+  display: none;
 }
 
 /*# sourceMappingURL=style.css.map */
