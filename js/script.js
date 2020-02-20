@@ -9,6 +9,8 @@ document.getElementById('allButton').addEventListener('click', function(){
   document.getElementById('allButton').style.backgroundColor = "grey";
   document.getElementById('topSection').style.display = "none";
   document.getElementById('allSection').style.display = "block";
+  document.getElementById("topSearchButton").style.display = "none";
+  document.getElementById("allSearchButton").style.display = "block";
   console.log('clicked');
 });
 
@@ -17,6 +19,8 @@ document.getElementById('topButton').addEventListener('click', function(){
   document.getElementById('topButton').style.backgroundColor = "grey";
   document.getElementById('allSection').style.display = "none";
   document.getElementById('topSection').style.display = "block";
+  document.getElementById("allSearchButton").style.display = "none";
+  document.getElementById("topSearchButton").style.display = "block";
 });
 
 // generic search for on load & testing, as well as everything version for testing
@@ -71,7 +75,7 @@ var categoryCheck = null;
 
 general(); // fill page with preset options
 
-document.getElementById('searchButton').addEventListener('click', function(e){
+document.getElementById('topSearchButton').addEventListener('click', function(e){
 
   keyword = document.getElementById('searchWord').value; 
   console.log(keyword);
@@ -130,6 +134,10 @@ if ((keyCheck === null) && (categoryCheck === null) && (countryCheck === null)) 
   console.log('all checked');
   url = `http://newsapi.org/v2/top-headlines?q=${keyword}&country=${country}&category=${category}&apiKey=${key}`;
 }
+}
+
+function newUrl(){
+  
 }
 
 url = `http://newsapi.org/v2/top-headlines?country=nz&apiKey=${key}`;
