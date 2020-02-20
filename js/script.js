@@ -23,29 +23,46 @@ document.getElementById('topButton').addEventListener('click', function(){
   document.getElementById("topSearchButton").style.display = "block";
 });
 
-// generic search for on load & testing, as well as everything version for testing
-var test = `http://newsapi.org/v2/top-headlines?country=nz&apiKey=${key}`;
-// var test = `http://newsapi.org/v2/everything?language=ud&apiKey=${key}`;
+// end of param checks for top section
 
-function general(){
-  $.ajax({
-    url: test,
-    type:'GET',
-    data:'json',
-    success: function(data) {
-      console.log(data);
-      var i;
-      for(i=0; i<data.articles.length; i++){
-        document.getElementById('dump').innerHTML += '<div class="col-3">' + '<p class="" src="">'+data.articles[i].title+'</p>' + '</div>';
-      }
-    },//data end
-    error: function(){
-      console.log('error');
-    }//error end
-  });//ajax ending here
+function loadPaste(){
+  baseUrl = 'http://newsapi.org/v2/top-headlines?';
+  newUrl();
+  searchTop(baseUrl);
 }
 
-function generalTest(x){
+// checks
+
+//search vars
+var keyword = "";
+var country = "";
+var category = ""; 
+
+//checks for search url
+var keyCheck = null;
+var countryCheck = null;
+var categoryCheck = null;
+
+//checks
+
+$(document).on('change','#category',function(){
+    categoryCheck = "checked";
+    console.log(categoryCheck);
+});
+
+$(document).on('change','#searchWord',function(){
+    keyCheck = "checked";
+    console.log(keyCheck);
+});
+
+$(document).on('change','#country',function(){
+    countryCheck = "checked";
+    console.log(countryCheck);
+});
+
+// top search
+
+function searchTop(x){
   $.ajax({
     url: x,
     type:'GET',
@@ -63,102 +80,133 @@ function generalTest(x){
   });//ajax ending here
 } 
 
-//search vars
-var keyword = "";
-var country = "";
-var category = ""; 
+var baseUrl = 'http://newsapi.org/v2/top-headlines?';
 
-//checks for search url
-var keyCheck = null;
-var countryCheck = null;
-var categoryCheck = null;
-
-general(); // fill page with preset options
-
-document.getElementById('topSearchButton').addEventListener('click', function(e){
-
+function newUrl(){
   keyword = document.getElementById('searchWord').value; 
   console.log(keyword);
   country = document.getElementById('country').value;
   console.log(country);
   category = document.getElementById('category').value;
   console.log(category);
-  document.getElementById('dump').innerHTML = ""; // clear page
 
-  paramCheck(); // checks which options are selected and which vars to set
-
-  var x = url; // set which search http to use
-
-  generalTest(x); //fire off funcitno
-  });
-
-$(document).on('change','#category',function(){
-    categoryCheck = "checked";
-    console.log(categoryCheck);
-});
-
-$(document).on('change','#searchWord',function(){
-    keyCheck = "checked";
-    console.log(keyCheck);
-});
-
-$(document).on('change','#country',function(){
-    countryCheck = "checked";
-    console.log(countryCheck);
-});
-
-
-//checks for every set of parameters to be selected and places relavent url into url var
-function paramCheck(){
-if ((keyCheck === null) && (categoryCheck === null) && (countryCheck === null)) {
-  console.log('all null');
-} else if ((keyCheck === "checked") && (categoryCheck === null) && (countryCheck === null)) {
-  console.log('key checked');
-  url = `http://newsapi.org/v2/top-headlines?q=${keyword}&apiKey=${key}`;
-} else if ((keyCheck === null) && (categoryCheck === "checked") && (countryCheck === null)) {
-  console.log('categoryCheck checked');
-  url = `http://newsapi.org/v2/top-headlines?category=${category}&apiKey=${key}`;
-} else if ((keyCheck === null) && (categoryCheck === null) && (countryCheck === "checked")) {
-  console.log('country checked');
-  url = `http://newsapi.org/v2/top-headlines?country=${country}&apiKey=${key}`;
-} else if ((keyCheck === "checked") && (categoryCheck === "checked") && (countryCheck === null)) {
-  console.log('key and category checked');
-  url = `http://newsapi.org/v2/top-headlines?q=${keyword}&category=${category}&apiKey=${key}`;
-} else if ((keyCheck === "checked") && (categoryCheck === null) && (countryCheck === "checked")) {
-  console.log('key and country checked');
-  url = `http://newsapi.org/v2/top-headlines?q=${keyword}&country=${country}&apiKey=${key}`;
-} else if ((keyCheck === null) && (categoryCheck === "checked") && (countryCheck === "checked")) {
-  console.log('category and country checked');
-  url = `http://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${key}`;
-} else if ((keyCheck === "checked") && (categoryCheck === "checked") && (countryCheck === "checked")) {
-  console.log('all checked');
-  url = `http://newsapi.org/v2/top-headlines?q=${keyword}&country=${country}&category=${category}&apiKey=${key}`;
-}
+  if(countryCheck != null)baseUrl += "country=" + country + "&";
+  if(keyCheck != null)baseUrl += "q=" + keyword + "&";
+  if(categoryCheck != null)baseUrl += "category=" + category + "&";
+  if(baseUrl === 'http://newsapi.org/v2/top-headlines?')baseUrl += "country=nz&";
+  baseUrl += "apiKey=" + key;
 }
 
-function newUrl(){
-  
-}
+document.getElementById('topSearchButton').addEventListener('click', function(){
+  baseUrl = 'http://newsapi.org/v2/top-headlines?';
+  newUrl();
+  console.log(baseUrl);
+  document.getElementById('dump').innerHTML = ""; 
+  searchTop(baseUrl);
+});
 
-url = `http://newsapi.org/v2/top-headlines?country=nz&apiKey=${key}`;
+//end search top
 
-// end of param checks for top section
+//begin search all
 
-// functino for checking all paramaters
+// checks
+
+//search vars
+var keywordAll = "";
+var language = "";
+var sortBy = ""; 
+
+//checks for search url
+var keyCheckAll = null;
+var languageCheck = null;
+var sortByCheck = null;
+
+//checks
+
+$(document).on('change','#language',function(){
+    languageCheck = "checked";
+    console.log(languageCheck);
+});
 
 $(document).on('change','#searchWord2',function(){
-    document.getElementById('country2').innerHTML += '<option value="relevancy">Relevance</option>';
-    console.log("key2Check");
+    keyCheckAll = "checked";
+    document.getElementById('textWarningKey').style.display = "none";
+    document.getElementById('searchWord2').style.border = "";
+    console.log(keyCheckAll);
 });
 
+$(document).on('change','#sortBy',function(){
+    sortByCheck = "checked";
+    console.log(sortByCheck);
+});
+
+function searchAll(x){
+  $.ajax({
+    url: x,
+    type:'GET',
+    data:'json',
+    success: function(data) {
+      console.log(data);
+      var i;
+      for(i=0; i<data.articles.length; i++){
+        document.getElementById('dump').innerHTML += '<div class="col-3">' + '<p class="" src="">'+data.articles[i].title+'</p>' + '</div>';
+      }
+    },//data end
+    error: function(){
+      console.log('error');
+    }//error end 
+  });//ajax ending here
+} 
+
+var baseUrlAll = 'http://newsapi.org/v2/everything?';
+
+function keyWordAllCheck(){
+  if(keyCheckAll === null){
+    // alert('enter search word');
+    document.getElementById('textWarningKey').style.display = "block";
+    document.getElementById('searchWord2').style.border = "solid red 1px";
+  } else if (keyCheckAll != null){
+    newUrlAll();
+  console.log(baseUrlAll);
+  document.getElementById('dump').innerHTML = ""; 
+  searchAll(baseUrlAll);
+  }
+}
+
+function newUrlAll(){
+  keywordAll = document.getElementById('searchWord2').value; 
+  console.log(keyword);
+  language = document.getElementById('language').value;
+  console.log(country);
+  sortBy = document.getElementById('sortBy').value;
+  console.log(category);
+  if(languageCheck != null)baseUrlAll += "language=" + language + "&";
+  if(keyCheckAll != null)baseUrlAll += "q=" + keywordAll + "&";
+  if(sortByCheck != null)baseUrlAll += "sortBy=" + sortBy + "&";
+  if(baseUrlAll === 'http://newsapi.org/v2/everything?')baseUrlAll += "q=news&language=en&sortBy=popularity&";
+  baseUrlAll += "apiKey=" + key;
+}
+
+
+document.getElementById('allSearchButton').addEventListener('click', function(){
+  baseUrlAll = 'http://newsapi.org/v2/everything?';
+  keyWordAllCheck();
+});
+
+$(document).on('change','#searchWord2',function(){
+    document.getElementById('sortBy').innerHTML += '<option value="relevancy">Relevance</option>';
+    console.log("key2Check");
+});
 
 //executes search function onclick while focused on keyword entry area
 var input = document.getElementById("searchWord");
 input.addEventListener("keyup", function(event) {
   if (event.keyCode === 13) {
     event.preventDefault();
-    document.getElementById("searchButton").click();
+    document.getElementById("topSearchButton").click();
   }
 });
+
+loadPaste(); // fill with top nz headlines on load
 
 });

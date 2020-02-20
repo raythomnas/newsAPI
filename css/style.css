@@ -1,5 +1,5 @@
 body {
-  background-color: #458945;
+  background-color: #FFFAF0;
 }
 
 #allButton {
@@ -15,6 +15,10 @@ body {
 }
 
 #allSearchButton {
+  display: none;
+}
+
+#textWarningKey {
   display: none;
 }
 
