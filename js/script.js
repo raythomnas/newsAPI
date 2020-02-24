@@ -79,11 +79,7 @@ function searchTop(x){
     error: function(){
       console.log('error');
     }//error end 
-  });//ajax ending here
-  // var check = document.getElementById('dump').innerHTML;
-  // if (check === ""){
-  //   document.getElementById('dump').innerHTML += '<div class="col-3">' + '<p> no results </p>' + '</div>';
-  // }
+  });//ajax ending here  
 } 
 
 var baseUrl = 'http://newsapi.org/v2/top-headlines?';
@@ -97,9 +93,13 @@ function newUrl(){
   console.log(category);
 
   if(countryCheck != null)baseUrl += "country=" + country + "&";
+
   if(keyCheck != null)baseUrl += "q=" + keyword + "&";
+
   if(categoryCheck != null)baseUrl += "category=" + category + "&";
+
   if(baseUrl === 'http://newsapi.org/v2/top-headlines?')baseUrl += "country=nz&";
+  
   baseUrl += "apiKey=" + key;
 }
 

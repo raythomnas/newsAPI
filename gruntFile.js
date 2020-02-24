@@ -6,11 +6,8 @@ module.exports = function(grunt) {
 
       watch: {
         scripts: {
-          files : ['css/style.css', 'js/script.js', 'sass/style.scss'],
+          files : ['css/style.css', 'js/script.js', 'sass/style.scss', ],
           tasks : ['sass',  'csslint', 'jshint',],
-          // options:  {
-          //   spawn : false,
-          // },
         },
       },
 
@@ -33,7 +30,7 @@ module.exports = function(grunt) {
   strict: {
     options: {
       import: 2
-    },
+    }, 
     src: ['css/style.css']
   },
   lax: {
@@ -47,21 +44,34 @@ module.exports = function(grunt) {
   jshint: {
     all: ['Gruntfile.js', 'js/script.js'],
     options: {
-    esversion: 6,
+    // esversion: 6,
     },
   },
+
+  cssmin: {
+  target: {
+    files: [{
+      expand: true,
+      cwd: 'css/',
+      src: ['*.css', '!*.min.css'],
+      dest: 'min/',
+      ext: '.min.css'
+    }]
+  }
+},
 
 
   uglify: {
     my_target: {
       files: {
-        'min/script.min.js': ['js/script.js']
+        'min/script.min.js': ['js/script.js'],
       }
     }
   },
 
 
   });
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-csslint');
   grunt.loadNpmTasks('grunt-contrib-watch');

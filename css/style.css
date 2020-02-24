@@ -2,23 +2,16 @@ body {
   background-color: #FFFAF0;
 }
 
-#allButton {
+.searchAllButton {
   background-color: white;
 }
 
-#topButton {
+.searchTopButton {
   background-color: gray;
-}
-
-#allSection {
   display: none;
 }
 
-#allSearchButton {
-  display: none;
-}
-
-#textWarningKey {
+.hidden {
   display: none;
 }
 

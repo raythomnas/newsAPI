@@ -10,8 +10,8 @@
 <div class="row">
 <div class="col-3 pt-5 pl-5">
 
-	<button class="w-25" id="topButton" value="hi">TOP</button>
-	<button class="w-25" id="allButton" value="hi">ALL</button>
+	<button class="w-25 searchTopButton" id="topButton" value="hi">TOP</button>
+	<button class="w-25 searchAllButton" id="allButton" value="hi">ALL</button>
 
 <div id="topSection">
 	<input class="m-2"  id="searchWord" type="text" name="filter" placeholder="search term here">
@@ -39,9 +39,9 @@
 	</select>
 </div>
 
-<div id="allSection">
+<div class="hidden" id="allSection">
 	<input class="m-2"  id="searchWord2" type="text" name="filter" placeholder="search term here">
-  <p class="text-danger" id="textWarningKey">please enter a search term</p>
+  <p class="text-danger" id="textWarningKey" class="hidden">please enter a search term</p>
 	
 	<select class="m-2"  id="language">
 	<option disabled="yes" selected="selected" value="">Choose language</option>
@@ -63,20 +63,12 @@
 	<option disabled="yes" selected="selected" value="">SortBy</option>
   	<option value="publishedAt">Latest</option>
   	<option value="popularity">Popular</option>
-  	<!-- <option value="relevancy">Relevance</option> -->
 	</select>
 </div>
-
-<!-- <button class="m-2 w-100" id="searchButton" value="hi">SEARCH</button> -->
 
 <button class="m-2 w-100" id="topSearchButton" value="hi">SEARCH</button>
 
 <button class="m-2 w-100" id="allSearchButton" value="hi">SEARCH</button>
-
-
-<!-- <button class="m-2" id="testButton" value="hi">TEST</button> -->
-
-
 
 </div>
 
@@ -93,5 +85,6 @@
 <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="js/key.json"></script>
 <script type="text/javascript" src="js/script.js"></script>
+
 </body>
 </html>
