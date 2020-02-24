@@ -70,14 +70,20 @@ function searchTop(x){
     success: function(data) {
       console.log(data);
       var i;
+      document.getElementById('dump').innerHTML += '<div class="col-12 p-2 mt-2">' + '<p style="text-align:center">'+data.totalResults+' results found</p>' + '</div>';
       for(i=0; i<data.articles.length; i++){
         document.getElementById('dump').innerHTML += '<div class="col-3">' + '<p class="" src="">'+data.articles[i].title+'</p>' + '</div>';
+        resultsFound = true;
       }
     },//data end
     error: function(){
       console.log('error');
     }//error end 
   });//ajax ending here
+  // var check = document.getElementById('dump').innerHTML;
+  // if (check === ""){
+  //   document.getElementById('dump').innerHTML += '<div class="col-3">' + '<p> no results </p>' + '</div>';
+  // }
 } 
 
 var baseUrl = 'http://newsapi.org/v2/top-headlines?';
@@ -149,7 +155,7 @@ function searchAll(x){
       console.log(data);
       var i;
       for(i=0; i<data.articles.length; i++){
-        document.getElementById('dump').innerHTML += '<div class="col-3">' + '<p class="" src="">'+data.articles[i].title+'</p>' + '</div>';
+        document.getElementById('dump').innerHTML += '<div class="col-3">' + '<p>'+data.articles[i].title+'</p>' + '</div>';
       }
     },//data end
     error: function(){
@@ -170,6 +176,10 @@ function keyWordAllCheck(){
   console.log(baseUrlAll);
   document.getElementById('dump').innerHTML = ""; 
   searchAll(baseUrlAll);
+  }
+  var check = document.getElementById('dump').innerHTML;
+  if (check === ""){
+    document.getElementById('dump').innerHTML += '<div class="col-3">' + '<p> no results </p>' + '</div>';
   }
 }
 
