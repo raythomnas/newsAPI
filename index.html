@@ -1,22 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>news-flash</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Tajawal&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 
-<div class="row">
-<div class="col-3 pt-5 pl-5">
+<div class="row w-100">
 
-	<button class="w-25 searchTopButton" id="topButton" value="hi">TOP</button>
-	<button class="w-25 searchAllButton" id="allButton" value="hi">ALL</button>
+<div class="col-3 pt-5 pl-5 menu" >
 
-<div id="topSection">
-	<input class="m-2"  id="searchWord" type="text" name="filter" placeholder="search term here">
+  <div class="row w-100">
+    <h2 class="title w-100 m-2 text-center" id="title">news-flash</h2>
+  </div>
+
+
+<div class="hideMe" id="menus">
+
+  <div class="row">
+	<button class="w-50 searchTopButton" id="topButton" value="hi">TOP</button>
+	<button class="w-50 searchAllButton" id="allButton" value="hi">ALL</button>
+</div>
+
+<div id="topSection" class="row">
+	<input class="m-2 w-100"  id="searchWord" type="text" name="filter" placeholder="search term here">
 	
-	<select class="m-2"  id="category">
+	<select class="m-2 w-100 hoverMe"  id="category">
 	<option disabled="yes" selected="selected" value="">Choose category</option>
   	<option value="business">business</option>
   	<option value="entertainment">entertainment</option>
@@ -27,7 +40,7 @@
   	<option value="technology">technology</option>
 	</select>
 
-	<select class="m-2"  id="country">
+	<select class="m-2 w-100 hoverMe"  id="country">
 	<option disabled="yes" selected="selected" value="">Choose country</option>
   	<option value="nz">nz</option>
   	<option value="us">us</option>
@@ -39,11 +52,16 @@
 	</select>
 </div>
 
-<div class="hidden" id="allSection">
-	<input class="m-2"  id="searchWord2" type="text" name="filter" placeholder="search term here">
-  <p class="text-danger" id="textWarningKey" class="hidden">please enter a search term</p>
-	
-	<select class="m-2"  id="language">
+<div class="hidden row" id="allSection">
+
+  
+	<input class="m-2 w-100"  id="searchWord2" type="text" name="filter" placeholder="search term here">
+
+  <!-- <div class="w-100"> -->
+  <p class="text-danger hidden w-100 text-center" id="textWarningKey">please enter a search term</p>
+	<!-- </div> -->
+
+	<select class="m-2 w-100 hoverMe"  id="language">
 	<option disabled="yes" selected="selected" value="">Choose language</option>
   	<option value="ar">Arabic</option>
   	<option value="de">German</option>
@@ -59,26 +77,39 @@
   	<option value="zh">Chinese</option>
 	</select>
 
-	<select class="m-2"  id="sortBy">
-	<option disabled="yes" selected="selected" value="">SortBy</option>
+	<select class="m-2 w-100 hoverMe"  id="sortBy">
+	<option disabled="yes" selected="selected" value="">Sort By</option>
   	<option value="publishedAt">Latest</option>
   	<option value="popularity">Popular</option>
 	</select>
 </div>
 
+<div class="row">
 <button class="m-2 w-100" id="topSearchButton" value="hi">SEARCH</button>
 
-<button class="m-2 w-100" id="allSearchButton" value="hi">SEARCH</button>
+<button class="m-2 w-100 hidden" id="allSearchButton" value="hi">SEARCH</button>
 
+<p class="m-2 w-100 hidden text-center hoverMe" id="closeMenus">close</p>
 </div>
 
-	<div id="tester" class="col-9">
+</div>
+</div>
+
+  <div id="tester" class="col">
         <div id="resultsHeader" class="row">
     </div>
-		<div id="dump" class="row">
-		</div>
-	</div>
+    <div id="dump" class="row justify-content-center">
+    </div>
+  </div>
 </div>
+
+</div>
+
+<div id="topArrow" class="row hoverMe">
+  <p class="w-100 text-center">Return to top</p>
+</div>
+
+
 
 <script src="node_modules/jquery/dist/jquery.min.js"></script>
 <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>

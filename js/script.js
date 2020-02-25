@@ -11,7 +11,6 @@ document.getElementById('allButton').addEventListener('click', function(){
   document.getElementById('allSection').style.display = "block";
   document.getElementById("topSearchButton").style.display = "none";
   document.getElementById("allSearchButton").style.display = "block";
-  console.log('clicked');
 });
 
 document.getElementById('topButton').addEventListener('click', function(){
@@ -47,17 +46,14 @@ var categoryCheck = null;
 
 $(document).on('change','#category',function(){
     categoryCheck = "checked";
-    console.log(categoryCheck);
 });
 
 $(document).on('change','#searchWord',function(){
     keyCheck = "checked";
-    console.log(keyCheck);
 });
 
 $(document).on('change','#country',function(){
     countryCheck = "checked";
-    console.log(countryCheck);
 });
 
 // top search
@@ -72,8 +68,7 @@ function searchTop(x){
       var i;
       document.getElementById('dump').innerHTML += '<div class="col-12 p-2 mt-2">' + '<p style="text-align:center">'+data.totalResults+' results found</p>' + '</div>';
       for(i=0; i<data.articles.length; i++){
-        document.getElementById('dump').innerHTML += '<div class="col-3">' + '<p class="" src="">'+data.articles[i].title+'</p>' + '</div>';
-        resultsFound = true;
+        document.getElementById('dump').innerHTML += '<div class="col-3 border-dark border m-3 article" id='+i+'>' + '<p>'+data.articles[i].title+'</p>' + '</div>';
       }
     },//data end
     error: function(){
@@ -86,11 +81,8 @@ var baseUrl = 'http://newsapi.org/v2/top-headlines?';
 
 function newUrl(){
   keyword = document.getElementById('searchWord').value; 
-  console.log(keyword);
   country = document.getElementById('country').value;
-  console.log(country);
   category = document.getElementById('category').value;
-  console.log(category);
 
   if(countryCheck != null)baseUrl += "country=" + country + "&";
 
@@ -131,19 +123,16 @@ var sortByCheck = null;
 
 $(document).on('change','#language',function(){
     languageCheck = "checked";
-    console.log(languageCheck);
 });
 
 $(document).on('change','#searchWord2',function(){
     keyCheckAll = "checked";
     document.getElementById('textWarningKey').style.display = "none";
     document.getElementById('searchWord2').style.border = "";
-    console.log(keyCheckAll);
 });
 
 $(document).on('change','#sortBy',function(){
     sortByCheck = "checked";
-    console.log(sortByCheck);
 });
 
 function searchAll(x){
@@ -154,8 +143,9 @@ function searchAll(x){
     success: function(data) {
       console.log(data);
       var i;
+      document.getElementById('dump').innerHTML += '<div class="col-12 p-2 mt-2">' + '<p style="text-align:center">'+data.totalResults+' results found</p>' + '</div>';
       for(i=0; i<data.articles.length; i++){
-        document.getElementById('dump').innerHTML += '<div class="col-3">' + '<p>'+data.articles[i].title+'</p>' + '</div>';
+        document.getElementById('dump').innerHTML += '<div class="col-3 border-dark border m-3 article">' + '<p>'+data.articles[i].title+'</p>' + '</div>';
       }
     },//data end
     error: function(){
@@ -168,7 +158,6 @@ var baseUrlAll = 'http://newsapi.org/v2/everything?';
 
 function keyWordAllCheck(){
   if(keyCheckAll === null){
-    // alert('enter search word');
     document.getElementById('textWarningKey').style.display = "block";
     document.getElementById('searchWord2').style.border = "solid red 1px";
   } else if (keyCheckAll != null){
@@ -177,19 +166,12 @@ function keyWordAllCheck(){
   document.getElementById('dump').innerHTML = ""; 
   searchAll(baseUrlAll);
   }
-  var check = document.getElementById('dump').innerHTML;
-  if (check === ""){
-    document.getElementById('dump').innerHTML += '<div class="col-3">' + '<p> no results </p>' + '</div>';
-  }
 }
 
 function newUrlAll(){
   keywordAll = document.getElementById('searchWord2').value; 
-  console.log(keyword);
   language = document.getElementById('language').value;
-  console.log(country);
   sortBy = document.getElementById('sortBy').value;
-  console.log(category);
   if(languageCheck != null)baseUrlAll += "language=" + language + "&";
   if(keyCheckAll != null)baseUrlAll += "q=" + keywordAll + "&";
   if(sortByCheck != null)baseUrlAll += "sortBy=" + sortBy + "&";
@@ -205,7 +187,6 @@ document.getElementById('allSearchButton').addEventListener('click', function(){
 
 $(document).on('change','#searchWord2',function(){
     document.getElementById('sortBy').innerHTML += '<option value="relevancy">Relevance</option>';
-    console.log("key2Check");
 });
 
 //executes search function onclick while focused on keyword entry area
@@ -216,6 +197,32 @@ input.addEventListener("keyup", function(event) {
     document.getElementById("topSearchButton").click();
   }
 });
+
+document.getElementById('topArrow').addEventListener('click', function(){
+  returnToTop();
+});
+
+function returnToTop(){
+  window.scrollTo(0, 0); 
+}
+
+document.getElementById('title').addEventListener('click', function(){
+  menuShow();
+});
+
+function menuShow(){
+  document.getElementById('menus').style.display = "block";
+  document.getElementById('closeMenus').style.display = "block";
+}
+
+document.getElementById('closeMenus').addEventListener('click', function(){
+  menuHide();
+});
+
+function menuHide(){
+  document.getElementById('menus').style.display = "none";
+  document.getElementById('closeMenus').style.display = "none";
+}
 
 loadPaste(); // fill with top nz headlines on load
 
