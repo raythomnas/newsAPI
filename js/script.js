@@ -68,7 +68,7 @@ function searchTop(x){
       var i;
       document.getElementById('dump').innerHTML += '<div class="col-12 p-2 mt-2">' + '<p style="text-align:center">'+data.totalResults+' results found</p>' + '</div>';
       for(i=0; i<data.articles.length; i++){
-        document.getElementById('dump').innerHTML += '<div class="col-3 border-dark border m-3 article" id='+i+'>' + '<p>'+data.articles[i].title+'</p>' + '</div>';
+        document.getElementById('dump').innerHTML += '<div class="col-3 border-dark border m-3 pt-2 article" id='+i+'>' + '<p>'+data.articles[i].title+'</p>' + '<img class="img-fluid" src="'+data.articles[i].urlToImage+'"></img>' + '<a class="w-100 text-warning" target="_blank" href="'+data.articles[i].url+'">read more..</a>' + '</div>';
       }
     },//data end
     error: function(){
@@ -145,7 +145,7 @@ function searchAll(x){
       var i;
       document.getElementById('dump').innerHTML += '<div class="col-12 p-2 mt-2">' + '<p style="text-align:center">'+data.totalResults+' results found</p>' + '</div>';
       for(i=0; i<data.articles.length; i++){
-        document.getElementById('dump').innerHTML += '<div class="col-3 border-dark border m-3 article">' + '<p>'+data.articles[i].title+'</p>' + '</div>';
+        document.getElementById('dump').innerHTML += '<div class="col-3 border-dark border pt-2 m-3 article">' + '<p>'+data.articles[i].title+'</p>' + '<img class="img-fluid" src="'+data.articles[i].urlToImage+'"></img>' + '<a class="w-100 text-warning" target="_blank" href="'+data.articles[i].url+'">read more..</a>' + '</div>';
       }
     },//data end
     error: function(){
