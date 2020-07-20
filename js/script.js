@@ -227,3 +227,4 @@ function menuHide(){
 loadPaste(); // fill with top nz headlines on load
 
 });
+
