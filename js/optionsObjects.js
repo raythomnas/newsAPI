@@ -1,4 +1,4 @@
-var images = [
+var languages = [
 
 	{
 		abv: "ar",
@@ -47,5 +47,56 @@ var images = [
 	{
 		abv: "zh",
 		fullName: "汉语, 漢語",
+	},
+]
+
+var categories = [
+	{
+		name : "business",
+	},
+	{
+		name : "entertainment",
+	},
+	{
+		name : "general",
+	},
+	{
+		name : "health",
+	},
+	{
+		name : "science",
+	},
+	{
+		name : "sports",
+	},
+	{
+		name : "technology",
+	},
+]
+
+var countries = [
+	{
+		abv: "nz",
+		fullName: "New Zealand",
+	},
+	{
+		abv: "us",
+		fullName: "America",
+	},
+	{
+		abv: "ua",
+		fullName: "Ukraine",
+	},
+	{
+		abv: "it",
+		fullName: "Italy",
+	},
+	{
+		abv: "ru",
+		fullName: "Russia",
+	},
+	{
+		abv: "sg",
+		fullName: "Signapore",
 	},
 ]

@@ -23,6 +23,11 @@
   width: 100%;
 }
 
+.barXLrg {
+  height: 5rem;
+  width: 100%;
+}
+
 .navigation {
   display: flex;
   align-items: stretch;
@@ -43,6 +48,7 @@
 .headerItem {
   padding: 0 1rem 0 1rem;
   align-self: center;
+  display: block;
 }
 
 .contentArea {
@@ -67,7 +73,14 @@
   height: auto;
 }
 .headlinerImg .headlinerTitle {
+  -webkit-text-stroke: 0.2px lightgrey;
   align-self: flex-start;
+}
+.headlinerImg .headlinerAuthor {
+  -webkit-text-stroke: 0.2px lightgrey;
+}
+.headlinerImg .headlinerDate {
+  -webkit-text-stroke: 0.2px lightgrey;
 }
 
 .headlinerBlurb {
@@ -87,7 +100,7 @@
 }
 
 .article {
-  height: 3.5rem;
+  height: 5rem;
   flex-direction: row;
   display: flex;
   width: 100%;
@@ -106,23 +119,32 @@
   display: flex;
   flex-wrap: wrap;
 }
+.article .articleText .articleDetailText {
+  font-size: 0.8rem;
+}
 .article .articleText .articleTextTitle {
   width: 80%;
-  height: 70%;
-}
-.article .articleText .articleTextIcon {
-  width: 20%;
-  height: 70%;
+  height: 65%;
+  overflow: hidden;
 }
 .article .articleText .articleTextAuthor {
-  width: 33%;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 .article .articleText .articleTextDate {
-  width: 33%;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 .article .articleText .articleTextRead {
-  width: 33%;
+  width: 20%;
   text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .borderThin {
@@ -141,7 +163,7 @@
   left: 0;
   background-color: white;
   z-index: 2;
-  display: flex;
+  display: none;
   flex-direction: column;
 }
 .searchContainer .filterOption {
@@ -155,8 +177,8 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem;
   overflow: scroll;
+  overflow-x: hidden;
 }
 .searchContainer .filtersContainer {
   padding: 0.5rem;
@@ -168,7 +190,44 @@
   width: 100%;
   height: 100%;
 }
+.searchContainer .filterDropDown {
+  width: 100%;
+  height: 100%;
+}
 
 .redText {
   color: red;
+}
+
+.articleFull {
+  height: 100vh;
+  width: 100vw;
+  background-color: white;
+  z-index: 2;
+  flex-direction: column;
+}
+.articleFull .articleHero {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 30%;
+}
+.articleFull .articleHero .heroContent {
+  background-image: url("../images/testImg.jpg");
+  background-size: cover;
+  height: 100%;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.articleFull .articleContent {
+  padding: 0.5rem;
+  width: 100%;
+  height: 100%;
+}
+.articleFull .articleContent img {
+  width: 100%;
+  height: auto;
 }

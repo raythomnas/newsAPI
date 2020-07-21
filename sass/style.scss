@@ -25,6 +25,11 @@
   width: 100%;
 }
 
+.barXLrg {
+  height: 5rem;
+  width: 100%;
+}
+
 .navigation {
   display: flex;
   align-items: stretch;
@@ -45,6 +50,7 @@
 .headerItem {
     padding: 0 1rem 0 1rem;
     align-self: center;
+    display: block;
 }
 
 .contentArea {
@@ -68,13 +74,15 @@
     height: auto;
   }
   .headlinerTitle {
+    -webkit-text-stroke: 0.2px lightgrey;
     align-self: flex-start;
   }
-
-  // .headlinerAuthor, .headlinerDate{
-  //   align-self: flex-end;
-  // }
-  // align to bottom of div not working atm`
+  .headlinerAuthor {
+    -webkit-text-stroke: 0.2px lightgrey;
+  }
+  .headlinerDate {
+    -webkit-text-stroke: 0.2px lightgrey;
+  }
 }
 
 .headlinerBlurb {
@@ -94,7 +102,7 @@
 }
 
 .article {
-  height: 3.5rem;
+  height: 5rem;
   flex-direction: row;
   display: flex;
   width: 100%;
@@ -111,23 +119,32 @@
     width: 80%;
     display: flex;
     flex-wrap: wrap;
+    .articleDetailText {
+      font-size: 0.8rem;
+    }
     .articleTextTitle {
       width: 80%;
-      height: 70%;
-    }
-    .articleTextIcon {
-      width: 20%;
-      height: 70%;
+      height: 65%;
+      overflow: hidden;
     }
     .articleTextAuthor {
-      width: 33%;
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
     }
     .articleTextDate {
-      width: 33%;
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
     }
     .articleTextRead {
-      width: 33%;
+      width: 20%;
       text-align: right;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
     }
   }
 
@@ -151,7 +168,7 @@
   left: 0;
   background-color: white;
   z-index: 2;
-  display: flex;
+  display: none;
   flex-direction: column;
   .filterOption {
     display: flex;
@@ -164,8 +181,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem;
     overflow: scroll;
+    overflow-x: hidden;
   }
   .filtersContainer {
     padding: 0.5rem;
@@ -176,10 +193,46 @@
   .inputFull {
     width: 100%;
     height: 100%;
-
+  }
+  .filterDropDown {
+    width: 100%;
+    height: 100%;
   }
 }
 
 .redText {
   color: red;
+}
+
+.articleFull {
+  height: 100vh;
+  width: 100vw;
+  background-color: white;
+  z-index: 2;
+  flex-direction: column;
+  .articleHero {
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 30%;
+    .heroContent {
+      background-image: url("../images/testImg.jpg");
+      background-size: cover;
+      height: 100%;
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+  .articleContent {
+    padding: 0.5rem;
+    width: 100%;
+    height: 100%;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
 }
