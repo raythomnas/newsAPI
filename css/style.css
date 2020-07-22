@@ -4,27 +4,37 @@
   box-sizing: border-box;
 }
 
+.bumper {
+  display: none;
+  height: 3rem;
+}
+
+.roundedB {
+  border: solid grey 0px;
+  border-radius: 0.5rem;
+}
+
 .flex {
   display: flex;
 }
 
 .barSml {
-  min-height: 2rem;
+  height: 3rem;
   width: 100%;
 }
 
 .barMed {
-  height: 3.5rem;
+  height: 4.5rem;
   width: 100%;
 }
 
 .barLrg {
-  height: 4rem;
+  height: 5rem;
   width: 100%;
 }
 
 .barXLrg {
-  height: 5rem;
+  height: 6rem;
   width: 100%;
 }
 
@@ -32,17 +42,28 @@
   display: flex;
   align-items: stretch;
   align-items: stretch;
+  background-color: lightgrey;
+  width: 100vw;
 }
 
 .navBtn {
   flex-grow: 1;
   text-align: center;
   align-self: center;
+  padding: 0.4rem;
+  font-size: 1rem;
+}
+.navBtn p {
+  padding: 0.2rem;
+}
+.navBtn i {
+  font-size: 1.8rem;
 }
 
 .header {
   display: flex;
   overflow-x: scroll;
+  background-color: lightgrey;
 }
 
 .headerItem {
@@ -90,6 +111,7 @@
   height: 3.5rem;
   overflow: hidden;
   display: block;
+  padding-top: 0.2rem;
 }
 
 .headlinerRead {
@@ -97,7 +119,7 @@
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0), white 20%, white);
   display: block;
   position: relative;
-  bottom: 1.5rem;
+  bottom: 1.3rem;
   left: 50%;
   text-align: right;
 }
@@ -106,7 +128,6 @@
   height: 5rem;
   flex-direction: row;
   display: flex;
-  width: 100%;
   margin: 0.3rem;
 }
 .article .articleImg {
@@ -121,13 +142,14 @@
   width: 80%;
   display: flex;
   flex-wrap: wrap;
+  padding: 0.3rem;
 }
 .article .articleText .articleDetailText {
   font-size: 0.8rem;
 }
 .article .articleText .articleTextTitle {
-  width: 80%;
-  height: 65%;
+  width: 100%;
+  height: 50%;
   overflow: hidden;
 }
 .article .articleText .articleTextAuthor {
@@ -197,9 +219,22 @@
   width: 100%;
   height: 100%;
 }
+.searchContainer .halfBtn {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
 
-.redText {
-  color: red;
+.activeBtnBg {
+  background-color: lightgrey;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
 }
 
 .articleFull {
@@ -208,7 +243,12 @@
   background-color: white;
   flex-direction: column;
   position: fixed;
-  top: 2rem;
+  top: 3rem;
+}
+.articleFull .articleReturn {
+  display: flex;
+  align-items: center;
+  padding-left: 0.5rem;
 }
 .articleFull .articleHero {
   padding: 0.5rem;

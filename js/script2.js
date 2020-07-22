@@ -3,7 +3,7 @@
 $("#searchAll, #searchTop",).click(function(){
     $("#topFilters, #allFilters",).toggle();
     $("#searchTopConfirm, #searchAllConfirm",).toggleClass("hidden");
-    $("#searchAll, #searchTop",).toggleClass("redText");
+    $("#searchAll, #searchTop",).toggleClass("activeBtnBg");
 });
 
 //search menu hide show
@@ -212,7 +212,7 @@ function homeResults(u){
       	document.getElementById('contentArea').innerHTML 
       	// headliner article
 		+='<div class="headliner" onclick="loadSingle(this.id)" id="'+i+'">'
-		+'<div class="headlinerImg" id="headLinerImg");">'
+		+'<div class="headlinerImg roundedB" id="headLinerImg");">'
 		+'<h2 class="headlinerTitle">'+data.articles[i].title+'</h2>'
 		+'<p class="headlinerAuthor">'+data.articles[i].author+'</p>'
 		+'<p class="headlinerDate">'+data.articles[i].publishedAt.substring(0, 10)+'</p>'
@@ -231,7 +231,7 @@ function homeResults(u){
       	if (isEven(i) === false) {
 	        document.getElementById('contentArea').innerHTML 
 			+= '<div class="article" onclick="loadSingle(this.id)" id="'+i+'">'
-			+ '<div class="articleImg">'
+			+ '<div class="articleImg roundedB">'
 			+ '<img src="'+data.articles[i].urlToImage+'">'
 			+ '</div>     '
 			+ '<div class="articleText">'
@@ -250,7 +250,7 @@ function homeResults(u){
 			+ '<p class="articleTextDate articleDetailText">'+data.articles[i].publishedAt.substring(0, 10)+'</p>'
 			+ '<p class="articleTextRead ">read</p>'
 			+ '</div>'
-			+ '<div class="articleImg">'
+			+ '<div class="articleImg roundedB">'
 			+ '<img src="'+data.articles[i].urlToImage+'">'
 			+ '</div>'
 			+ '</div>'
@@ -312,7 +312,7 @@ function singleArticle(x, i){
 				// article layout when clicked on
 				+='<div class="articleFull" id="articleL">'
 				+'<div class="articleReturn barSml">'
-				+'<p onclick="hideArticle()">Return</p>'
+				+'<p onclick="hideArticle()"><i class="fa fa-angle-left"></i> Return</p>'
 				+'</div>'
 				+'<div class="articleHero" >'
 				+'<div class="heroContent" id="heroBg'+i+'">'
@@ -376,11 +376,20 @@ function headerlink(clicked_id){
 
 // search w filters functions 
 
+$("#searchBar").click(function(){
+	$("#searchBar").css({
+		"border" : "solid 1px lightgrey",
+	})
+});
+
 $("#searchAllConfirm").click(function(){
 	if (keyAdd != null){
 	searchByAll();
 } else {
-	alert('enter search term :):):):)')
+	$("#searchBar").css({
+		"border" : "solid 1px red",
+	});
+	document.getElementById("searchBar").placeholder = " Please enter a search term";
 }
 })
 
@@ -400,7 +409,10 @@ $("#searchTopConfirm").click(function(){
 	if (keyAdd != null){
 	searchByTop();
 } else {
-	alert('enter search term :):):):)')
+	$("#searchBar").css({
+		"border" : "solid 1px red",
+	});
+	document.getElementById("searchBar").placeholder = " Please enter a search term";
 }
 })
 
@@ -431,7 +443,10 @@ $("#menuOpen",).click(function(){
     	"display" : "flex",    
     });
     $("#articleL").css({
-    	"top" : "4rem",    
+    	"top" : "7.5rem",    
+    });
+    $("#navContainer").css({
+    	"height" : "7.5rem",    
     });
 });
 
@@ -441,6 +456,30 @@ $("#menuClose, #searchTopConfirm, #searchAllConfirm, #homeBtn",).click(function(
     	"display" : "none",    
     });
     $("#articleL").css({
-    	"top" : "2rem",    
+    	"top" : "3rem",    
+    });
+    $("#navContainer").css({
+    	"height" : "3rem",    
     });
 });
+
+// sticky test
+
+// When the user scrolls the page, execute myFunction
+window.onscroll = function() {myFunction()};
+
+// Get the navbar
+var navbar = document.getElementById("navContainer");
+
+// Get the offset position of the navbar
+var sticky = navbar.offsetTop;
+
+// Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+    $("#bumper").toggle();
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
