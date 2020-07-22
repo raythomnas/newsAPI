@@ -73,13 +73,16 @@
   height: auto;
 }
 .headlinerImg .headlinerTitle {
+  color: white;
   -webkit-text-stroke: 0.2px lightgrey;
   align-self: flex-start;
 }
 .headlinerImg .headlinerAuthor {
+  color: white;
   -webkit-text-stroke: 0.2px lightgrey;
 }
 .headlinerImg .headlinerDate {
+  color: white;
   -webkit-text-stroke: 0.2px lightgrey;
 }
 
@@ -203,8 +206,9 @@
   height: 100vh;
   width: 100vw;
   background-color: white;
-  z-index: 2;
   flex-direction: column;
+  position: fixed;
+  top: 2rem;
 }
 .articleFull .articleHero {
   padding: 0.5rem;
@@ -221,6 +225,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  color: white;
+  -webkit-text-stroke: 0.2px lightgrey;
 }
 .articleFull .articleContent {
   padding: 0.5rem;

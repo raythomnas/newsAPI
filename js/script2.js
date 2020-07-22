@@ -5,12 +5,18 @@ $("#menuOpen",).click(function(){
     $("#navigation").css({
     	"display" : "flex",    
     });
+    $("#articleL").css({
+    	"top" : "4rem",    
+    });
 });
 
 $("#menuClose",).click(function(){
     $("#menuOpen, #menuClose",).toggle();
     $("#navigation").css({
     	"display" : "none",    
+    });
+    $("#articleL").css({
+    	"top" : "2rem",    
     });
 });
 
@@ -161,9 +167,9 @@ function newUrl(){
 
 // search function 
 
-function homeResults(x){
+function homeResults(u){
   $.ajax({
-    url: x,
+    url: u,
     type:'GET',
     data:'json',
     success: function(data) {
@@ -171,7 +177,7 @@ function homeResults(x){
       var i;
       for(i=0; i<1; i++){
       	document.getElementById('contentArea').innerHTML 
-		+='<div class="headliner" onclick="testArticle(this.id)" id="'+i+'">'
+		+='<div class="headliner" onclick="loadSingle(this.id)" id="'+i+'">'
 		+'<div class="headlinerImg" id="headLinerImg");">'
 		+'<h2 class="headlinerTitle">'+data.articles[i].title+'</h2>'
 		+'<p class="headlinerAuthor">'+data.articles[i].author+'</p>'
@@ -189,7 +195,7 @@ function homeResults(x){
       for(i=1; i<data.articles.length; i++){
       	if (isEven(i) === false) {
         document.getElementById('contentArea').innerHTML 
-		+= '<div class="article" id="'+i+'">'
+		+= '<div class="article" onclick="loadSingle(this.id)" id="'+i+'">'
 		+ '<div class="articleImg">'
 		+ '<img src="'+data.articles[i].urlToImage+'">'
 		+ '</div>     '
@@ -202,7 +208,7 @@ function homeResults(x){
 		+ '</div>'
 	} else {
         document.getElementById('contentArea').innerHTML 
-		+= '<div class="article" id="'+i+'">'
+		+= '<div class="article" onclick="loadSingle(this.id)" id="'+i+'">'
 		+ '<div class="articleText">'
 		+ '<p class="articleTextTitle">'+data.articles[i].title+'</p>'
 		+ '<p class="articleTextAuthor articleDetailText">'+data.articles[i].author+'</p>'
@@ -235,28 +241,57 @@ loadPaste();
 
 //article viewing js 
 
-$("#art1Link").click(function(){
-	$("#article1").toggleClass("flex").toggleClass("hidden");
-});
+function hideArticle(){
+	$("#articleL").toggleClass("flex").toggleClass("hidden");
+};
 
-function testArticle(){
+// var id = "";
+
+function loadSingle(clicked_id){
+  baseUrl = 'http://newsapi.org/v2/top-headlines?';
+  newUrl();
+  id = clicked_id;
+  testArticle(baseUrl, id);
+}
+
+function testArticle(x, i){
+	var id = i;
+	$.ajax({
+    url: x,
+    type:'GET',
+    data:'json',
+    success: function(data) {
+      console.log(data);
+	document.getElementById('singleArticle').innerHTML = "";
+	for(i=0; i<data.articles.length; i++){
+		if (i == id){
 	document.getElementById('singleArticle').innerHTML 
-		+='<div class="articleFull" id="article1">'
+		+='<div class="articleFull" id="articleL">'
 		+'<div class="articleReturn barSml">'
-		+'<p onclick="testArticle()">Return</p>'
+		+'<p onclick="hideArticle()">Return</p>'
 		+'</div>'
-		+'<div class="articleHero">'
-		+'<div class="heroContent">'
-		+'<h2>TITLE</h2>'
+		+'<div class="articleHero" >'
+		+'<div class="heroContent" id="heroBg'+i+'">'
+		+'<h2>'+data.articles[i].title+'</h2>'
 		+'<div>'
-		+'<h3>Author</h3>'
-		+'<h3>Date</h3>'
+		+'<h3>'+data.articles[i].author+'</h3>'
+		+'<h3>'+data.articles[i].publishedAt.substring(0, 10)+'</h3>'
 		+'</div>'
 		+'</div>'
 		+'</div>'
 		+'<div class="articleContent">'
-		+'<p></p>'
-		+'<img src="images/testImg.jpg">'
+		+'<p>'+data.articles[i].description+'</p>'
+		+'<p>'+data.articles[i].content+'</p>'
+		+'<p>Read more at <a href="'+data.articles[i].url+'">this link</a></p>'
 		+'</div>'
 		+'</div>'
+		document.getElementById('heroBg'+i+'').style.backgroundImage = "url("+data.articles[i].urlToImage+")";
+		document.getElementById('articleL').style.zIndex = "4";
+	}
+}
+    },//data end
+    error: function(){
+      console.log('error');
+    }//error end 
+  });//ajax ending here  
   };
