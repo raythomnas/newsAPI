@@ -23,7 +23,7 @@
       <p><i class="fa fa-angle-left"></i> return</p>
     </div>
     <div class="barMed borderThin filterOption noPadding">
-      <input type="text" name="searchTerm" id="searchBar" class="inputFull" placeholder="Search..">
+      <input type="text" name="searchTerm" id="searchBar" class="inputFull" placeholder="Search.." onchange="searchcheck()">
     </div>
     <div class="filtersContainer">
       <div class="barMed borderThin filterOption">
@@ -84,7 +84,8 @@
 
 
       <div class="barMed borderThin filterOption">
-        <p>confirm</p>
+        <p id="searchTopConfirm" class="hidden">Search Top</p>
+        <p id="searchAllConfirm">Search All</p>
       </div>
     </div>
   </div>
@@ -93,7 +94,7 @@
 
   <div class="navigation barSml hidden" id="navigation">
 
-    <div class="navBtn">
+    <div class="navBtn" id="homeBtn">
       <i class="fa fa-newspaper-o" style="font-size:24px"></i>
       <p>News</p>
     </div>

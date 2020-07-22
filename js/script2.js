@@ -2,6 +2,7 @@
 
 $("#searchAll, #searchTop",).click(function(){
     $("#topFilters, #allFilters",).toggle();
+    $("#searchTopConfirm, #searchAllConfirm",).toggleClass("hidden");
     $("#searchAll, #searchTop",).toggleClass("redText");
 });
 
@@ -31,8 +32,6 @@ $("#filterLang, #filterOpt, #filterCat, #filterCnt",).click(function(clicked_id)
 });
 
 // generates dropdowns based on objects in optionsObjects.js
-
-
 
 for (i=0; i < categories.length; i++){
 		document.getElementById('header').innerHTML 	
@@ -68,47 +67,56 @@ for (i=0; i < countries.length; i++){
 
 function languagecheck(){
 	var l = document.getElementById("filterLangList");
-	var searchLanguage = l.options[l.selectedIndex].value;
+	searchLanguage = l.options[l.selectedIndex].value;
 	var searchLanguageDisplay = l.options[l.selectedIndex].text;
 	document.getElementById('filterLangText').innerHTML 	
 		= 'Language: '+searchLanguageDisplay+''
 	$("#filterLangDrop").toggleClass("hidden");
 	$("#filterLangShow").toggle();
 	$("#filterLangClose").toggle();
+	languageAdd = "true";
 }; // languagecheck() end
 
 function sortbycheck(){
 	var l = document.getElementById("filterOptList");
-	var searchSort = l.options[l.selectedIndex].value;
+	searchSort = l.options[l.selectedIndex].value;
 	var searchSortDisplay = l.options[l.selectedIndex].text;
 	document.getElementById('filterOptText').innerHTML 	
 		= 'Sort by: '+searchSortDisplay+''
 	$("#filterOptDrop").toggleClass("hidden");
 	$("#filterOptShow").toggle();
 	$("#filterOptClose").toggle();
+	sortbyAdd = "true";
 }; // sortbycheck() end
 
 function countrycheck(){
 	var l = document.getElementById("filterCntList");
-	var searchCnt = l.options[l.selectedIndex].value;
+	searchCnt = l.options[l.selectedIndex].value;
 	var searchCntDisplay = l.options[l.selectedIndex].text;
 	document.getElementById('filterCntText').innerHTML 	
 		= 'Country: '+searchCntDisplay+''
 	$("#filterCntDrop").toggleClass("hidden");
 	$("#filterCntShow").toggle();
 	$("#filterCntClose").toggle();
+	countryAdd = "true";
 }; // countrycheck() end
 
 function categorycheck(){
 	var l = document.getElementById("filterCatList");
-	var searchCat = l.options[l.selectedIndex].value;
+	searchCat = l.options[l.selectedIndex].value;
 	var searchCatDisplay = l.options[l.selectedIndex].text;
 	document.getElementById('filterCatText').innerHTML 	
 	= 'Category: '+searchCatDisplay+''
 	$("#filterCatDrop").toggleClass("hidden");
 	$("#filterCatShow").toggle();
 	$("#filterCatClose").toggle();
+	categoryAdd = "true";
 }; // categorycheck() end
+
+function searchcheck(){
+	searchKey = document.getElementById("searchBar").value;
+	keyAdd = "true";
+}
 
 //set API key
 
@@ -148,6 +156,9 @@ function clearAdd(){
 	sortbyAdd = null;
 }
 
+var useAllUrl = null;
+var useTopUrl = "true";
+
 // function to create new search request
 
 function loadPaste(){
@@ -174,15 +185,17 @@ function newUrl(){
 
 function newUrlAll(){
 
-  if(languageCheck != null)baseUrlAll += "language=" + language + "&";
+  if(languageAdd != null)baseUrlAll += "language=" + searchLanguage + "&";
 
-  if(keyCheckAll != null)baseUrlAll += "q=" + keywordAll + "&";
+  if(keyAdd != null)baseUrlAll += "q=" + searchKey + "&";
 
-  if(sortByCheck != null)baseUrlAll += "sortBy=" + sortBy + "&";
+  if(sortbyAdd != null)baseUrlAll += "sortBy=" + searchSort + "&";
 
   if(baseUrlAll === 'http://newsapi.org/v2/everything?')baseUrlAll += "q=news&language=en&sortBy=popularity&";
   
   baseUrlAll += "apiKey=" + key;
+  console.log(searchLanguage)
+  console.log(baseUrlAll)
 } // newurlAll end
 
 // function for returning the home page style results
@@ -268,14 +281,23 @@ loadPaste();
 // function for loading a single articles detail within a page
 
 function loadSingle(clicked_id){
-  baseUrl = 'http://newsapi.org/v2/top-headlines?';
-  newUrl(); // if any filters are in place will match the current search
-  id = clicked_id;
-  singleArticle(baseUrl, id);
+	baseUrl = 'http://newsapi.org/v2/top-headlines?';
+	baseUrlAll = 'http://newsapi.org/v2/everything?';
+	id = clicked_id;
+	if (useTopUrl != null){
+		newUrl(); // if any filters are in place will match the current search
+		singleArticle(baseUrl, id);
+	} else {
+		newUrlAll();
+		singleArticle(baseUrlAll, id);
+	}
+	
+	
 } // loadSinle() end
 
 function singleArticle(x, i){
 	// function passed with x & i as baseUrl, clicked_id
+	console.log('single fired')
 	var id = i;
 	$.ajax({
     url: x,
@@ -320,6 +342,14 @@ function singleArticle(x, i){
 
 // function for links in header
 
+$("#homeBtn").click(function(){
+	document.getElementById('contentArea').innerHTML = "";
+	clearAdd();
+	clearSearchTerms();
+	loadPaste();
+});
+
+
 $("#headerTop").click(function(){
 	document.getElementById('contentArea').innerHTML = "";
 	clearAdd();
@@ -338,8 +368,52 @@ function headerlink(clicked_id){
     countryAdd = "true";
     searchCat = opt;
     searchCnt = "nz";
+    useAllUrl = null;
+	useTopUrl = "true";
     newUrl(); // if any filters are in place will match the current search
     homeResults(baseUrl);
+} // headerlink() end
+
+// search w filters functions 
+
+$("#searchAllConfirm").click(function(){
+	if (keyAdd != null){
+	searchByAll();
+} else {
+	alert('enter search term :):):):)')
+}
+})
+
+function searchByAll(){
+    baseUrlAll = 'http://newsapi.org/v2/everything?';
+    document.getElementById('contentArea').innerHTML = "";
+    newUrlAll(); // if any filters are in place will match the current search
+    homeResults(baseUrlAll);
+    $("#searchBox").css({
+		"display" : "none",
+	});
+	useAllUrl = "true";
+	useTopUrl = null;
+} // headerlink() end
+
+$("#searchTopConfirm").click(function(){
+	if (keyAdd != null){
+	searchByTop();
+} else {
+	alert('enter search term :):):):)')
+}
+})
+
+function searchByTop(){
+    baseUrl = 'http://newsapi.org/v2/top-headlines?';
+    document.getElementById('contentArea').innerHTML = "";
+    newUrl(); // if any filters are in place will match the current search
+    homeResults(baseUrl);
+    $("#searchBox").css({
+		"display" : "none",
+	});
+	useAllUrl = null;
+	useTopUrl = "true";
 } // headerlink() end
 
 //removes article
@@ -361,7 +435,7 @@ $("#menuOpen",).click(function(){
     });
 });
 
-$("#menuClose",).click(function(){
+$("#menuClose, #searchTopConfirm, #searchAllConfirm, #homeBtn",).click(function(){
     $("#menuOpen, #menuClose",).toggle();
     $("#navigation").css({
     	"display" : "none",    
