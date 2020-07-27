@@ -12,6 +12,9 @@ $("#searchOpen").click(function(){
 	$("#searchBox").css({
 		"display" : "flex",
 	});
+	$("#singleArticle").css({
+		"display" : "none",
+	});
 });
 
 $("#searchReturn").click(function(){
